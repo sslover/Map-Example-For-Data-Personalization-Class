@@ -45,8 +45,10 @@ exports.create = function(req,res){
 
 	// pull out the name and location
 	var name = req.body.name;
-	var location = req.body.location;
+	var location = req.body.homeLocation;
 	var vacationLocation = req.body.vacationLocation;
+
+	if(!name || !location || !vacationLocation) return res.json({status:'ERROR', message: 'You are missing a required field'})
 
   // an object to store the details about the person we'll save
   // we'll add to it as we move along
@@ -62,15 +64,16 @@ exports.create = function(req,res){
   	if(counter==2) saveUser(personObj);
   });	// geocode the core location
 
-  geocodeIt(location,function(err,data){
+  geocodeIt(vacationLocation,function(err,data){
   	if(err) return res.json(err);
   	personObj['vacation'] = data;
+  	counter++;
   	if(counter==2) saveUser(personObj);
   });	// geocode the core location
 
   function geocodeIt(locationToGeocode, callback){
 		//now, geocode that location
-		geocoder.geocode(location, function ( err, data ) {
+		geocoder.geocode(locationToGeocode, function ( err, data ) {
 
 	  	// if we get an error, or don't have any results, respond back with error
 	  	if (!data || data==null || err || data.status == 'ZERO_RESULTS'){
@@ -83,7 +86,7 @@ exports.create = function(req,res){
 
 	  	var data = {
 	  		name: data.results[0].formatted_address, // the location name
-  			geo = [lon,lat]; // need to put the geo co-ordinates in a lng-lat array for saving
+  			geo: [lon,lat] // need to put the geo co-ordinates in a lng-lat array for saving
 	  	}
 
 	  	return callback(null,data);
@@ -94,12 +97,8 @@ exports.create = function(req,res){
 
 	function saveUser(){
   	// otherwise, save the user
-
-	  var person = Person({
-	  	name: name,
-	  	locationName: locationName,
-	  	locationGeo: lnglat_array
-	  });
+  	console.log('hello');
+	  var person = Person(personObj);
 
 	  // now, save that person to the database
 		// mongoose method, see http://mongoosejs.com/docs/api.html#model_Model-save	  

@@ -8,11 +8,11 @@ var personSchema = new Schema({
 	location: {
 		geo: { type: [Number], index: { type: '2dsphere', sparse: true } },
 		name: String
-	}
+	},
 	vacation: {
 		geo: { type: [Number], index: { type: '2dsphere', sparse: true } },
 		name: String
-	}
+	},
 	dateAdded : { type: Date, default: Date.now },
 })
 
