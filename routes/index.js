@@ -45,15 +45,17 @@ exports.create = function(req,res){
 
 	// pull out the name and location
 	var name = req.body.name;
+	var dataInterest = req.body.dataInterest;
 	var location = req.body.homeLocation;
 	var vacationLocation = req.body.vacationLocation;
 
-	if(!name || !location || !vacationLocation) return res.json({status:'ERROR', message: 'You are missing a required field'})
+	if(!name || !dataInterest || !location || !vacationLocation) return res.json({status:'ERROR', message: 'You are missing a required field or have submitted a malformed request.'})
 
   // an object to store the details about the person we'll save
   // we'll add to it as we move along
   var personObj = {
-  	name: name
+  	name: name,
+  	dataInterest: dataInterest
   } 
 
 	var counter = 0; // let's keep track of the functions that have run
