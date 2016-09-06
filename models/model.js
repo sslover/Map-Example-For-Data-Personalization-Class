@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var personSchema = new Schema({
 	name: String,
 	dataInterest: String,
+	jsLevel: Number,
 	location: {
 		geo: { type: [Number], index: { type: '2dsphere', sparse: true } },
 		name: String
