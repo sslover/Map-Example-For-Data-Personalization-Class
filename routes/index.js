@@ -56,7 +56,8 @@ exports.create = function(req,res){
   // we'll add to it as we move along
   var personObj = {
   	name: name,
-  	dataInterest: dataInterest
+  	dataInterest: dataInterest,
+  	jsLevel: jsLevel
   } 
 
 	var counter = 0; // let's keep track of the functions that have run

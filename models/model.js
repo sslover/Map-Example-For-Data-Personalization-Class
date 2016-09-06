@@ -7,11 +7,11 @@ var personSchema = new Schema({
 	name: String,
 	dataInterest: String,
 	jsLevel: Number,
-	homeLocation: {
+	location: {
 		geo: { type: [Number], index: { type: '2dsphere', sparse: true } },
 		name: String
 	},
-	vacationLocation: {
+	vacation: {
 		geo: { type: [Number], index: { type: '2dsphere', sparse: true } },
 		name: String
 	},
