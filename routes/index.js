@@ -48,6 +48,7 @@ exports.create = function(req,res){
 	var dataInterest = req.body.dataInterest;
 	var location = req.body.homeLocation;
 	var vacationLocation = req.body.vacationLocation;
+	var jsLevel = req.body.jsLevel;
 
 	if(!name || !dataInterest || !location || !vacationLocation) return res.json({status:'ERROR', message: 'You are missing a required field or have submitted a malformed request.'})
 
